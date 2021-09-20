@@ -59,20 +59,10 @@ jobs:
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
       -  name: Build and analyze
-         uses: sonarsource/sonarcloud-github-action@master
-
          env:
            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
-         with:
-           projectBaseDir: src
-           args: >
-             -Dsonar.organization=deepali-arvind
-             -Dsonar.projectKey=deepali-arvind_cicd
-             -Dsonar.python.coverage.reportPaths=coverage.xml
-             -Dsonar.sources=lib/
-             -Dsonar.test.exclusions=tests/**
-             -Dsonar.tests=tests/
-             -Dsonar.verbose=true
+         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=deepali-arvind_cicd
+         
       #Build the application using Maven
       - name: Upload JAR
         #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
