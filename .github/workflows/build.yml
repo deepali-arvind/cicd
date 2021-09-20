@@ -58,6 +58,10 @@ jobs:
       #Build the application using Maven
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
+      -  name: Build and analyze
+         env:
+           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=deepali-arvind_ci        
       #Build the application using Maven
       - name: Upload JAR
         #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
@@ -81,8 +85,4 @@ jobs:
         with:
           name: artifact
       #Deploy the artifact (JAR) into AWS Beanstalk
-      -  name: Build and analyze
-         env:
-           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=deepali-arvind_cicd
-     
+      
