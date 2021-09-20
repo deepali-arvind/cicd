@@ -59,6 +59,8 @@ jobs:
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
       -  name: Build and analyze
+         env:
+           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
          with:
            projectBaseDir: src
            args: >
@@ -69,8 +71,6 @@ jobs:
              -Dsonar.test.exclusions=tests/**
              -Dsonar.tests=tests/
              -Dsonar.verbose=true
-         env:
-           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #Build the application using Maven
       - name: Upload JAR
         #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
