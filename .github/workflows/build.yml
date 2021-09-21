@@ -39,6 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     #Job's steps
     steps:
+      - name : Build to analyze
+        run: mvn -B package -DskipTests --file pom.xml    
       -  name: analyze
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any       
