@@ -32,21 +32,21 @@ jobs:
       #Run Tests
       - name: Run Tests
         run: mvn -B test
-  #Build's job
-  Sonar-scan:
+  sonarscan:
+    needs: tests
     name: sonar-scan
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     #Job's steps
     steps:
-      -  name: Build and analyze
+      -  name: analyze
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any       
            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
          run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=deepali-arvind_cicd
   build:
     #Depends on sonar's job
-    needs: tests
+    needs: sonarscan
     name: Build
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
