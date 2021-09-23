@@ -3,9 +3,13 @@ on:
   #Manually trigger workflow runs
   workflow_dispatch:
   #Trigger the workflow on push from the main branch
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
+      - v1
 jobs:
   #Test's job
   tests:
@@ -127,6 +131,7 @@ jobs:
     #Depends on build's job
     needs: deployuat
     name: Deploy to prod
+    if: github.ref == 'refs/heads/main'
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     environment:
