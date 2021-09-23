@@ -122,31 +122,3 @@ jobs:
           version_label: ${{github.SHA}}
           region: us-east-2
           deployment_package: ebs-demo-0.0.1-SNAPSHOT.jar        
-
-  deploy-prod:
-    #Depends on build's job
-    needs: deployuat
-    name: Deploy to prod
-    #Run on Ubuntu using the latest version
-    runs-on: ubuntu-latest
-    environment:
-      name: prod env
-      url: http://cicdspringbootdemoprod-env.eba-9uwzujf5.us-east-2.elasticbeanstalk.com/
-    steps:
-      - name: Download JAR
-        #Download the artifact which was uploaded in the build's job
-        uses: actions/download-artifact@v2
-        with:
-          name: artifact
-      #Deploy the artifact (JAR) into AWS Beanstalk
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v13
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          use_existing_version_if_available: false
-          application_name: ci-cd-spring-boot-demo-prod
-          environment_name: Cicdspringbootdemoprod-env
-          version_label: ${{github.SHA}}
-          region: us-east-2
-          deployment_package: ebs-demo-0.0.1-SNAPSHOT.jar
