@@ -103,7 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev env
-      url: http://cicdspringbootdemo-env.eba-pggwpa5c.us-east-2.elasticbeanstalk.com/
+      url: http://cicdspringbootdemo-env.eba-mdjyeshp.us-east-2.elasticbeanstalk.com/
     steps:
       - name: Download JAR
         #Download the artifact which was uploaded in the build's job
@@ -131,7 +131,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: prod env
-      url: http://cicdspringbootdemoprod-env.eba-9i5p2iif.us-east-2.elasticbeanstalk.com/
+      url: http://cicdspringbootdemoprod-env.eba-9uwzujf5.us-east-2.elasticbeanstalk.com/
     steps:
       - name: Download JAR
         #Download the artifact which was uploaded in the build's job
